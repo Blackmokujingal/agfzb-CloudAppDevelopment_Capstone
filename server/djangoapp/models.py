@@ -1,6 +1,9 @@
 import datetime
 from django.db import models
 from django.utils.timezone import now
+from django.core import serializers 
+import uuid
+import json
 
 
 # Car Make model
@@ -17,7 +20,7 @@ class CarMake(models.Model):
 class CarModel(models.Model):
     make = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE) 
     name = models.CharField(null=False, max_length=50)
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(default=1,primary_key=True)
 
     SEDAN = "Sedan"
     SUV = "SUV"
@@ -68,17 +71,24 @@ class CarDealer:
 
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview:
-    def __init__(self, dealership, id, name, purchase, review, make=None, car_model=None, car_year=None, purchase_date=None, sentiment="neutral"):
-        self.make = make
-        self.car_model = car_model
-        self.car_year = car_year
+
+    def __init__(self, dealership, name, purchase, review):
+        # Required attributes
         self.dealership = dealership
-        self.id = id  # The id of the review
-        self.name = name  # Name of the reviewer
-        self.purchase = purchase  # Did the reviewer purchase the car? bool
-        self.purchase_date = purchase_date
-        self.review = review  # The actual review text
-        self.sentiment = sentiment  # Watson NLU sentiment analysis of review
+        self.name = name
+        self.purchase = purchase
+        self.review = review
+        # Optional attributes
+        self.purchase_date = ""
+        self.purchase_make = ""
+        self.purchase_model = ""
+        self.purchase_year = ""
+        self.sentiment = ""
+        self.id = ""
 
     def __str__(self):
-        return "Reviewer: " + self.name + " Review: " + self.review
+        return "Review: " + self.review
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                            sort_keys=True, indent=4)
