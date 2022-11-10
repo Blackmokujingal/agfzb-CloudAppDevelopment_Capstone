@@ -42,16 +42,16 @@
             <h1>Sign Up</h1>
             <hr>
             <label for="username"><b>User Name</b></label> 
-            <input type="text" placeholder="Enter User Name: " name="username" required> <br>
+            <input type="text" placeholder="Enter User Name: " name="username" style="width: 50%; border-radius: 7px;" required> <br>
             <label for="firstname"><b>First Name</b></label>
-            <input type="text" placeholder="Enter First Name: " name="firstname" required> <br>
+            <input type="text" placeholder="Enter First Name: " name="firstname" style="width: 50%; border-radius: 7px;" required> <br>
             <label for="lastname"><b>Last Name</b></label>
-            <input type="text" placeholder="Enter Last Name: " name="lastname" required> <br>
+            <input type="text" placeholder="Enter Last Name: " name="lastname" style="width: 50%; border-radius: 7px;"required> <br>
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password: " name="psw" required> <br>
+            <input type="password" placeholder="Enter Password: " name="psw" style="width: 50%; border-radius: 7px;"required> <br>
             <div>
                 {% csrf_token %}
-                <br> <button class="button" type="submit">Sign Up</button>
+                <br> <button class="button" style="position: relative; left: 45%;" type="submit">Sign Up</button>
             </div>
         </div>
     </form>
